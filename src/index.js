@@ -6,7 +6,7 @@ import commonjs from 'rollup-plugin-commonjs';
 const getBaseConfig = ({
   input = 'src/index.js',
   output,
-  external = ['react'],
+  external,
   name,
   ...extra
 }) => ({
@@ -15,10 +15,6 @@ const getBaseConfig = ({
     file: './dist/bundle.js',
     format: 'esm',
     name,
-    globals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    },
   },
   plugins: [
     json(),
@@ -26,7 +22,7 @@ const getBaseConfig = ({
       exclude: 'node_modules/**',
     }),
     resolve({
-      extensions: ['.mjs', '.js', '.jsx', '.json'],
+      extensions: ['.mjs', '.js', '.json'],
     }),
     commonjs(),
   ],
