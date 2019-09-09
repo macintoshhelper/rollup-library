@@ -1,5 +1,9 @@
 # rollup-template
-Rollup templates (React, etc)
+Importable rollup templates: React, Node, etc.
+
+API is not stable, this is an alpha release.
+
+Please check the issues if you'd like to contribute code/ideas!
 
 ## Get Started
 
@@ -13,7 +17,7 @@ npm install rollup-library
 
 In your projects `rollup.config.js`, use:
 ```js
-import makeConfig from 'rollup-library/react';
+import makeConfig from 'rollup-library';
 
 export default makeConfig({ input: 'src/main.js', name: 'MyProject' });
 ```

@@ -1,13 +1,14 @@
-import json from 'rollup-plugin-json';
-import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
+const json = require('rollup-plugin-json');
+const resolve = require('rollup-plugin-node-resolve');
+const babel = require('rollup-plugin-babel');
+const commonjs = require('rollup-plugin-commonjs');
 
 const getBaseConfig = ({
   input = 'src/index.js',
   output,
   external,
   name,
+  plugins,
   ...extra
 }) => ({
   input,
@@ -25,7 +26,7 @@ const getBaseConfig = ({
       extensions: ['.mjs', '.js', '.json'],
     }),
     commonjs(),
-  ],
+  ].concat(plugins || []),
   external,
   ...extra
 });
@@ -40,4 +41,4 @@ const makeConfig = (options, callback) => {
   return config;
 }
 
-export default makeConfig;
+module.exports = makeConfig;
