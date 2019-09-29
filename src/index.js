@@ -1,7 +1,7 @@
-const json = require('rollup-plugin-json');
-const resolve = require('rollup-plugin-node-resolve');
-const babel = require('rollup-plugin-babel');
-const commonjs = require('rollup-plugin-commonjs');
+const jsonPlugin = require('rollup-plugin-json');
+const resolvePlugin = require('rollup-plugin-node-resolve');
+const babelPlugin = require('rollup-plugin-babel');
+const commonjsPlugin = require('rollup-plugin-commonjs');
 
 const getBaseConfig = ({
   input = 'src/index.js',
@@ -9,23 +9,33 @@ const getBaseConfig = ({
   external,
   name,
   plugins,
+  json = {},
+  babel = {},
+  resolve = {},
+  commonjs = {},
   ...extra
 }) => ({
   input,
   output: output || {
     file: './dist/bundle.js',
     format: 'esm',
-    name,
+    name
   },
   plugins: [
-    json(),
-    babel({
+    jsonPlugin({
+      ...json
+    }),
+    babelPlugin({
       exclude: 'node_modules/**',
+      ...babel
     }),
-    resolve({
+    resolvePlugin({
       extensions: ['.mjs', '.js', '.json'],
+      ...resolve
     }),
-    commonjs(),
+    commonjsPlugin({
+      ...commonjs
+    }),
   ].concat(plugins || []),
   external,
   ...extra
